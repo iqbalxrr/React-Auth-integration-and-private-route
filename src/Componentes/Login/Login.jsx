@@ -1,10 +1,18 @@
 
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContex } from '../../Context/Userprovider';
+
 
 
 
 const Login = () => {
+
+  const {signIn} =useContext(AuthContex)
+
+  const navigate = useNavigate();
+
+
 
     const Handallogin =e =>{
 
@@ -12,6 +20,24 @@ const Login = () => {
     
         const email =e.target.email.value;
         const password = e.target.password.value;
+
+        signIn(email, password)
+
+        .then( Result =>{
+         
+          // form er sob input ke reset dilsm
+          e.target.reset();
+           
+          //  navigate kore homepage a niya jawa
+          navigate('/') 
+
+
+          console.log(Result.user)
+        } )
+        .catch(error =>{
+
+          console.log(error.message)
+        })
 
         console.log( email , password)
     }

@@ -1,15 +1,38 @@
 
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useContext, useReducer } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { AuthContex } from '../../Context/Userprovider';
 
 const Navber = () => {
+
+  const {user , logOut }=useContext(AuthContex)
+
+
+  const HandalSignOut = () =>{
+
+     logOut()
+     .then( () =>{
+      console.log('please logOut')
+
+     })
+     .then( () =>{
+      console.log(error.message)
+     })
+  }
 
     const navlinks = <>
          
          <li> <NavLink to={'/'}>Home</NavLink></li>
          <li> <NavLink to={'/login'}>Login</NavLink></li>
          <li> <NavLink to={'/register'}>Register</NavLink></li>
-        
+         <li> <NavLink to={'/orders'}>Orders</NavLink></li>
+         
+         { user &&
+           <>
+          <li> <NavLink to={'/perches'}>Perches</NavLink></li>
+          <li> <NavLink to={'/dashbord'}>Dashbord</NavLink></li>
+          </>
+         }        
     
     </>
 
@@ -49,7 +72,12 @@ const Navber = () => {
     </ul>
   </div>
   <div className="navbar-end">
-    <a className="btn">Button</a>
+    {
+      user ? <span> {user.email}
+      <a onClick={HandalSignOut} className="btn btn-sm">Sign-Out</a> </span>
+      : <Link to={'/login'}> </Link>
+    }
+   
   </div>
 </div>
         </>

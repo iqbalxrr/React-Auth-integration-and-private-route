@@ -11,6 +11,9 @@ import Login from './Componentes/Login/Login';
 import Register from './Componentes/Register/Register';
 import Home from './Componentes/Home/Home';
 import Root from './Componentes/Root/Root';
+import Userprovider from './Context/Userprovider';
+import Orders from './Componentes/Orders/Orders';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +35,10 @@ const router = createBrowserRouter([
         element:<Register></Register>
       }
       ,
+      {
+        path:'/orders',
+        element: <PrivateRoute><Orders></Orders></PrivateRoute>
+      }
       
     ]
   },
@@ -41,6 +48,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-     <RouterProvider router={router} />
+     <Userprovider>
+        <RouterProvider router={router} />
+     </Userprovider>
   </StrictMode>,
 )
+
+// userprovider akta antina . antina er  vitor over all sob gulo jinis bosiya dilam . and er vitor a ja gula thakbe seta children hisab a pabo ;
